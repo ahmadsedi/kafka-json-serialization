@@ -12,9 +12,9 @@ import java.util.UUID;
  */
 
 public final class OrderPayload extends EventPayload{
-    private Date orderDate;
-    private String merchandise;
-    private String user;
+    private final Date orderDate;
+    private final String merchandise;
+    private final String user;
 
     public OrderPayload(@JsonProperty("id")UUID id, @JsonProperty("order_date")Date orderDate,
                         @JsonProperty("merchandise")String merchandise, @JsonProperty("user")String user) {
@@ -22,10 +22,6 @@ public final class OrderPayload extends EventPayload{
         this.orderDate = orderDate;
         this.merchandise = merchandise;
         this.user = user;
-    }
-
-    public OrderPayload(UUID id) {
-        super(id);
     }
 
     public Date getOrderDate() {
@@ -38,18 +34,6 @@ public final class OrderPayload extends EventPayload{
 
     public String getUser() {
         return user;
-    }
-
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public void setMerchandise(String merchandise) {
-        this.merchandise = merchandise;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
     }
 
     @Override
