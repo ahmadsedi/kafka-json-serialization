@@ -21,21 +21,16 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 
 public class PipelinedReceiver extends AbstractReceiver {
-//    private final Thread pollingThread;
-//
-//    private final Thread processingThread;
 
     private final Consumer<String, EventPayloadWrapper> consumer;
 
     private final Duration pollTimeout;
 
-    private boolean active = true;
     private final String topic;
 
     public PipelinedReceiver(Map<String, Object> consumerConfig,
                              String topic,
-                             Duration pollTimeout,
-                             int queueCapacity) {
+                             Duration pollTimeout) {
         this.pollTimeout = pollTimeout;
 
         final var mergedConfig = new HashMap<String, Object>();
@@ -52,11 +47,10 @@ public class PipelinedReceiver extends AbstractReceiver {
         try {
             consumer.subscribe(Set.of(topic));
             System.out.println("Start Processing");
-            while (active) {
+            while (true) {
                 this.onPollCycle();
 //                this.onProcessCycle();
                 Thread.sleep(pollTimeout.toMillis());
-//                System.out.println("End Processing");
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -82,7 +76,6 @@ public class PipelinedReceiver extends AbstractReceiver {
 
     @Override
     public void close() {
-        this.active = false;
         consumer.close();
     }
 }

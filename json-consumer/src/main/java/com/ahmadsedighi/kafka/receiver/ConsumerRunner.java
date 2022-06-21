@@ -21,12 +21,12 @@ public class ConsumerRunner {
     public static void main(String[] args) throws InterruptedException {
         final var consumerConfig =
                 Map.<String, Object>of(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka:9092",
-                        ConsumerConfig.GROUP_ID_CONFIG, "order-consumer-group",
+                        ConsumerConfig.GROUP_ID_CONFIG, "order-group",
                         ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false
 //                        ,ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest"
                 );
 
-        try (var receiver = new PipelinedReceiver(consumerConfig, "order-topic", Duration.ofMillis(100), 10)) {
+        try (var receiver = new PipelinedReceiver(consumerConfig, "order-topic", Duration.ofMillis(100))) {
             new OrderService(receiver);
             receiver.start();
             Thread.sleep(10_000);
