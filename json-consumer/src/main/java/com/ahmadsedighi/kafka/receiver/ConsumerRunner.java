@@ -23,7 +23,7 @@ public class ConsumerRunner {
                 Map.<String, Object>of(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka:9092",
                         ConsumerConfig.GROUP_ID_CONFIG, "order-consumer",
                         ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false
-                        ,ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest"
+//                        ,ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest"
                 );
 
         try (var receiver = new PipelinedReceiver(consumerConfig, "order-topic", Duration.ofMillis(100), 10)) {
