@@ -20,7 +20,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * Time: 14:11
  */
 
-public class PipelinedReceiver extends AbstractReceiver {
+public class SimpleEventReceiver extends AbstractReceiver {
 
     private final Consumer<String, EventPayloadWrapper> consumer;
 
@@ -28,9 +28,9 @@ public class PipelinedReceiver extends AbstractReceiver {
 
     private final String topic;
 
-    public PipelinedReceiver(Map<String, Object> consumerConfig,
-                             String topic,
-                             Duration pollTimeout) {
+    public SimpleEventReceiver(Map<String, Object> consumerConfig,
+                               String topic,
+                               Duration pollTimeout) {
         this.pollTimeout = pollTimeout;
 
         final var mergedConfig = new HashMap<String, Object>();

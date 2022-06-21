@@ -1,15 +1,11 @@
 package com.ahmadsedighi.kafka.receiver;
 
-import com.ahmadsedighi.kafka.receiver.service.OrderPayloadDeserializer;
 import com.ahmadsedighi.kafka.receiver.service.OrderService;
-import com.ahmadsedighi.kafka.receiver.service.PipelinedReceiver;
+import com.ahmadsedighi.kafka.receiver.service.SimpleEventReceiver;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.common.serialization.StringDeserializer;
 
 import java.time.Duration;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author Ahmad R. Seddighi (ahmadseddighi@yahoo.com)
@@ -26,7 +22,7 @@ public class ConsumerRunner {
                         ,ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest"
                 );
 
-        try (var receiver = new PipelinedReceiver(consumerConfig, "order-topic", Duration.ofMillis(100))) {
+        try (var receiver = new SimpleEventReceiver(consumerConfig, "order-topic", Duration.ofMillis(100))) {
             new OrderService(receiver);
             receiver.start();
             Thread.sleep(10_000);

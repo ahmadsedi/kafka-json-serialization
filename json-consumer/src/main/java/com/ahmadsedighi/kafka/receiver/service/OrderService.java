@@ -1,8 +1,5 @@
 package com.ahmadsedighi.kafka.receiver.service;
 
-import com.ahmadsedighi.kafka.receiver.service.EventReceiver;
-import com.ahmadsedighi.kafka.receiver.service.PipelinedReceiver;
-
 /**
  * @author Ahmad R. Seddighi (ahmadseddighi@yahoo.com)
  * Date: 20/06/2022
