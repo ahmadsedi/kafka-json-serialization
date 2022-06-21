@@ -44,17 +44,19 @@ public class PipelinedReceiver extends AbstractReceiver {
 
     @Override
     public void start() {
-        try {
+//        try {
             consumer.subscribe(Set.of(topic));
             System.out.println("Start Processing");
             while (true) {
-                this.onPollCycle();
-//                this.onProcessCycle();
-                Thread.sleep(pollTimeout.toMillis());
+                final var records = consumer.poll(Duration.ofMillis(100));
+                for (var record : records) {
+                    System.out.format("Got record with value %s%n", record.value());
+                }
+                consumer.commitAsync();
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void onPollCycle() throws InterruptedException {
