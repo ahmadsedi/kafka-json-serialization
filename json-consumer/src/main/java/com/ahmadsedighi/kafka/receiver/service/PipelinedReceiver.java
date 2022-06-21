@@ -84,15 +84,8 @@ public class PipelinedReceiver extends AbstractReceiver {
                 System.out.format("Received:%s", event);
                 receivedEvents.put(event);
             }
-//        }else{
-//            System.out.println("Empty records!");
-//        }
 
-        for (Map<TopicPartition, OffsetAndMetadata> pendingOffset;
-             (pendingOffset = pendingOffsets.poll()) != null; ) {
-            System.out.format("Committing %d records", pendingOffset.size());
-            consumer.commitAsync(pendingOffset, null);
-        }
+        consumer.commitAsync();
     }
 
     private void onProcessCycle() throws InterruptedException {
