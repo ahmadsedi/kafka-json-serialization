@@ -58,7 +58,7 @@ public class PipelinedReceiver extends AbstractReceiver {
             consumer.subscribe(Set.of(topic));
             while (active) {
                 this.onPollCycle();
-                this.onProcessCycle();
+//                this.onProcessCycle();
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
