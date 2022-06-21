@@ -1,5 +1,7 @@
 package com.ahmadsedighi.kafka.receiver.event;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -14,7 +16,8 @@ public final class OrderPayload extends EventPayload {
     private String merchandise;
     private String user;
 
-    public OrderPayload(UUID id, Date orderDate, String merchandise, String user) {
+    public OrderPayload(@JsonProperty("id")UUID id, @JsonProperty("order_date")Date orderDate,
+                        @JsonProperty("merchandise")String merchandise, @JsonProperty("user")String user) {
         super(id);
         this.orderDate = orderDate;
         this.merchandise = merchandise;
