@@ -61,7 +61,7 @@ public class PipelinedReceiver extends AbstractReceiver {
                 this.onPollCycle();
 //                this.onProcessCycle();
                 Thread.sleep(pollTimeout.toMillis());
-                System.out.println("End Processing");
+//                System.out.println("End Processing");
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
