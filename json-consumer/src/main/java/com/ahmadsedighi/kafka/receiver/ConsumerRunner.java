@@ -21,7 +21,7 @@ public class ConsumerRunner {
     public static void main(String[] args) throws InterruptedException {
         final var consumerConfig =
                 Map.<String, Object>of(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka:9092",
-                        ConsumerConfig.GROUP_ID_CONFIG, "order-consumer",
+                        ConsumerConfig.GROUP_ID_CONFIG, "order-consumer-group",
                         ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false
 //                        ,ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest"
                 );
