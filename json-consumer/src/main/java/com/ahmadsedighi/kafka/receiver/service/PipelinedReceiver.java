@@ -29,19 +29,14 @@ public class PipelinedReceiver extends AbstractReceiver {
 
     private final Duration pollTimeout;
 
-    private final BlockingQueue<Event> receivedEvents;
-
-    private final Queue<Map<TopicPartition, OffsetAndMetadata>> pendingOffsets = new LinkedBlockingQueue<>();
-
     private boolean active = true;
-    private final String topic ;
+    private final String topic;
 
     public PipelinedReceiver(Map<String, Object> consumerConfig,
                              String topic,
                              Duration pollTimeout,
                              int queueCapacity) {
         this.pollTimeout = pollTimeout;
-        receivedEvents = new LinkedBlockingQueue<>(queueCapacity);
 
         final var mergedConfig = new HashMap<String, Object>();
         mergedConfig.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
@@ -77,23 +72,12 @@ public class PipelinedReceiver extends AbstractReceiver {
             throw new InterruptedException("Interrupted during poll");
         }
 
-//        if (!records.isEmpty()) {
-            for (var record : records) {
-                final var value = record.value();
-                final var event = new Event(value.getPayload(), value.getError(), record, value.getEncodedValue());
-                System.out.format("Received:%s", event);
-                receivedEvents.put(event);
-            }
+        for (var record : records) {
+            final var value = record.value();
+            System.out.format("Received:%s", value);
+        }
 
         consumer.commitAsync();
-    }
-
-    private void onProcessCycle() throws InterruptedException {
-        final var event = receivedEvents.take();
-        fire(event);
-        final var record = event.getRecord();
-        pendingOffsets.add(Map.of(new TopicPartition(record.topic(), record.partition()),
-                new OffsetAndMetadata(record.offset() + 1)));
     }
 
     @Override
