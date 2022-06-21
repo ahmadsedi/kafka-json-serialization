@@ -18,7 +18,7 @@ import java.util.Set;
  */
 
 public class ConsumerRunner {
-    public static void main_(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
         final var consumerConfig =
                 Map.<String, Object>of(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka:9092",
                         ConsumerConfig.GROUP_ID_CONFIG, "order-consumer",
@@ -32,7 +32,7 @@ public class ConsumerRunner {
             Thread.sleep(10_000);
         }
     }
-    public static void main(String[] args) {
+    public static void main_(String[] args) {
         final var topic = "order-topic";
         final Map<String, Object> config = Map.of(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka:9092",
                 ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName(),
