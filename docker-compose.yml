@@ -24,7 +24,7 @@ services:
 
   producer-service:
     build:
-      context: producer
+      context: json-producer
     mem_limit: 512m
     depends_on:
       kafka:
@@ -32,7 +32,7 @@ services:
 
   consumer-service:
     build:
-      context: .
+      context: json-consumer
     mem_limit: 512m
     depends_on:
       kafka:
